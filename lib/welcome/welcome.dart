@@ -69,6 +69,7 @@ class _WelcomeState extends State<Welcome> {
                   Container(
                     child: Image(
                       image: AssetImage('image/logo.png'),
+                      width: 220,
                     ),
                   ),
                   SizedBox(
@@ -82,7 +83,7 @@ class _WelcomeState extends State<Welcome> {
                           style: TextStyle(
                             color: Colors.blue[900],
                             fontWeight: FontWeight.bold,
-                            fontSize: 70,
+                            fontSize: 50,
                           ),
                         ),
                         SizedBox(
@@ -146,12 +147,12 @@ class _WelcomeState extends State<Welcome> {
                           },
                           child: const Text(
                             'เข้าหน้าให้คะแนน',
-                            style: TextStyle(fontSize: 50),
+                            style: TextStyle(fontSize: 30),
                           ),
                           style: ElevatedButton.styleFrom(
                             primary: Colors.blue,
                             onPrimary: Colors.black,
-                            minimumSize: const Size(100, 90),
+                            minimumSize: const Size(60, 70),
                           ),
                         ),
                         Row(),

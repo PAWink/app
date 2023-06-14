@@ -1,3 +1,4 @@
+import 'package:app/rating/rating.dart';
 import 'package:app/welcome/welcome.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

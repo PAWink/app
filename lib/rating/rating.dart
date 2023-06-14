@@ -129,7 +129,7 @@ class _RatingState extends State<Rating> {
                   Container(
                     child: Image(
                       image: AssetImage('image/logo.png'),
-                      width: 300,
+                      width: 220,
                     ),
                   ),
                   /*SizedBox(
@@ -147,7 +147,7 @@ class _RatingState extends State<Rating> {
                                 '${widget.deptName}',
                                 style: TextStyle(
                                   color: Colors.blue[900],
-                                  fontSize: 80,
+                                  fontSize: 60,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -178,7 +178,7 @@ class _RatingState extends State<Rating> {
                       allowHalfRating: false,
                       unratedColor: Colors.blue[200],
                       itemCount: 5,
-                      itemSize: 230.0,
+                      itemSize: 150.0,
                       itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
                       updateOnDrag: true,
                       itemBuilder: (context, index) {
@@ -210,7 +210,7 @@ class _RatingState extends State<Rating> {
                                             Text(
                                               "ขอบคุณที่ใช้บริการ",
                                               style: TextStyle(
-                                                fontSize: 80,
+                                                fontSize: 50,
                                                 color: Colors.blue[900],
                                                 fontWeight: FontWeight.bold,
                                               ),
@@ -218,7 +218,7 @@ class _RatingState extends State<Rating> {
                                             Text(
                                               "THANK YOU",
                                               style: TextStyle(
-                                                fontSize: 80,
+                                                fontSize: 50,
                                                 color: Colors.blue[900],
                                                 fontWeight: FontWeight.bold,
                                               ),
@@ -261,7 +261,7 @@ class _RatingState extends State<Rating> {
                                             Text(
                                               "ขอบคุณที่ใช้บริการ",
                                               style: TextStyle(
-                                                fontSize: 80,
+                                                fontSize: 50,
                                                 color: Colors.blue[900],
                                                 fontWeight: FontWeight.bold,
                                               ),
@@ -269,7 +269,7 @@ class _RatingState extends State<Rating> {
                                             Text(
                                               "THANK YOU",
                                               style: TextStyle(
-                                                fontSize: 80,
+                                                fontSize: 50,
                                                 color: Colors.blue[900],
                                                 fontWeight: FontWeight.bold,
                                               ),
@@ -312,7 +312,7 @@ class _RatingState extends State<Rating> {
                                               Text(
                                                 "ขอบคุณที่ใช้บริการ",
                                                 style: TextStyle(
-                                                  fontSize: 80,
+                                                  fontSize: 50,
                                                   color: Colors.blue[900],
                                                   fontWeight: FontWeight.bold,
                                                 ),
@@ -320,7 +320,7 @@ class _RatingState extends State<Rating> {
                                               Text(
                                                 "THANK YOU",
                                                 style: TextStyle(
-                                                  fontSize: 80,
+                                                  fontSize: 50,
                                                   color: Colors.blue[900],
                                                   fontWeight: FontWeight.bold,
                                                 ),
@@ -361,7 +361,7 @@ class _RatingState extends State<Rating> {
                                               Text(
                                                 "ขอบคุณที่ใช้บริการ",
                                                 style: TextStyle(
-                                                  fontSize: 80,
+                                                  fontSize: 50,
                                                   color: Colors.blue[900],
                                                   fontWeight: FontWeight.bold,
                                                 ),
@@ -369,7 +369,7 @@ class _RatingState extends State<Rating> {
                                               Text(
                                                 "THANK YOU",
                                                 style: TextStyle(
-                                                  fontSize: 80,
+                                                  fontSize: 50,
                                                   color: Colors.blue[900],
                                                   fontWeight: FontWeight.bold,
                                                 ),
@@ -410,7 +410,7 @@ class _RatingState extends State<Rating> {
                                               Text(
                                                 "ขอบคุณที่ใช้บริการ",
                                                 style: TextStyle(
-                                                  fontSize: 80,
+                                                  fontSize: 50,
                                                   color: Colors.blue[900],
                                                   fontWeight: FontWeight.bold,
                                                 ),
@@ -418,7 +418,7 @@ class _RatingState extends State<Rating> {
                                               Text(
                                                 "THANK YOU",
                                                 style: TextStyle(
-                                                  fontSize: 80,
+                                                  fontSize: 50,
                                                   color: Colors.blue[900],
                                                   fontWeight: FontWeight.bold,
                                                 ),
@@ -450,41 +450,41 @@ class _RatingState extends State<Rating> {
                   Row(
                     children: [
                       Text(
-                        '     น้อยมาก   ',
+                        '         น้อยมาก   ',
                         style: TextStyle(
-                          fontSize: 60,
+                          fontSize: 45,
                           color: Colors.blue[900],
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       Text(
-                        '   น้อย   ',
+                        ' น้อย   ',
                         style: TextStyle(
-                          fontSize: 60,
+                          fontSize: 45,
                           color: Colors.blue[900],
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       Text(
-                        '   พอใช้   ',
+                        '  พอใช้   ',
                         style: TextStyle(
-                          fontSize: 60,
+                          fontSize: 45,
                           color: Colors.blue[900],
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       Text(
-                        '      ดี   ',
+                        '    ดี   ',
                         style: TextStyle(
-                          fontSize: 60,
+                          fontSize: 45,
                           color: Colors.blue[900],
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       Text(
-                        '       ดีมาก   ',
+                        '    ดีมาก   ',
                         style: TextStyle(
-                          fontSize: 60,
+                          fontSize: 45,
                           color: Colors.blue[900],
                           fontWeight: FontWeight.bold,
                         ),
