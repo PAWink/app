@@ -20,7 +20,7 @@ class _RatingState extends State<Rating> {
   List data = [];
 
   Future<void> insertRating(double rating) async {
-    String apiUrl = 'http://10.0.2.2/satisfy/postdata.php';
+    String apiUrl = 'http://61.19.80.98/satisfy/postdata.php';
     String token =
         'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluc2F0aXNmeSJ9.tFEPJ4vS29s6P-5YO_VGz9CoGMwQdbj38Gg4JHrdeZE';
 
@@ -57,7 +57,7 @@ class _RatingState extends State<Rating> {
   }
 
   Future<String> getAllName() async {
-    String apiUrl = 'http://10.0.2.2/satisfy/getdata.php';
+    String apiUrl = 'http://61.19.80.98/satisfy/getdata.php';
     String token =
         'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluc2F0aXNmeSJ9.tFEPJ4vS29s6P-5YO_VGz9CoGMwQdbj38Gg4JHrdeZE';
 
@@ -126,10 +126,16 @@ class _RatingState extends State<Rating> {
                   SizedBox(
                     height: 10,
                   ),
-                  Container(
-                    child: Image(
-                      image: AssetImage('image/logo.png'),
-                      width: 220,
+                  GestureDetector(
+                    onDoubleTap: () {
+                      // Handle double-tap to exit the app
+                      Navigator.of(context).pop();
+                    },
+                    child: Container(
+                      child: Image(
+                        image: AssetImage('image/logo.png'),
+                        width: 220,
+                      ),
                     ),
                   ),
                   /*SizedBox(
@@ -147,7 +153,7 @@ class _RatingState extends State<Rating> {
                                 '${widget.deptName}',
                                 style: TextStyle(
                                   color: Colors.blue[900],
-                                  fontSize: 60,
+                                  fontSize: 50,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -158,7 +164,7 @@ class _RatingState extends State<Rating> {
                                 'กรุณาให้คะแนนความพึงพอใจ',
                                 style: TextStyle(
                                   color: Colors.orange,
-                                  fontSize: 40,
+                                  fontSize: 30,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),

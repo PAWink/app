@@ -2,6 +2,7 @@ import 'package:app/rating/rating.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'dart:io';
 
 class Welcome extends StatefulWidget {
   const Welcome({Key? key, required this.deptId, required this.deptName})
@@ -19,7 +20,7 @@ class _WelcomeState extends State<Welcome> {
 
   Future<void> getAllName() async {
     final response = await http.get(
-      Uri.parse("http://10.0.2.2/satisfy/getdata.php"),
+      Uri.parse("http://61.19.80.98/satisfy/getdata.php"),
       headers: {
         "Accept": "application/json",
         "Authorization":
@@ -66,10 +67,16 @@ class _WelcomeState extends State<Welcome> {
                   SizedBox(
                     height: 30,
                   ),
-                  Container(
-                    child: Image(
-                      image: AssetImage('image/logo.png'),
-                      width: 220,
+                  GestureDetector(
+                    onDoubleTap: () {
+                      // Handle double-tap to exit the app
+                      exit(0);
+                    },
+                    child: Container(
+                      child: Image(
+                        image: AssetImage('image/logo.png'),
+                        width: 220,
+                      ),
                     ),
                   ),
                   SizedBox(
@@ -94,7 +101,7 @@ class _WelcomeState extends State<Welcome> {
                           style: TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.bold,
-                            fontSize: 50,
+                            fontSize: 40,
                           ),
                         ),
                         SizedBox(
