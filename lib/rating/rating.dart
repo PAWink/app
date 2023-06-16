@@ -163,7 +163,7 @@ class _RatingState extends State<Rating> {
                               Text(
                                 'กรุณาให้คะแนนความพึงพอใจ',
                                 style: TextStyle(
-                                  color: Colors.orange,
+                                  color: Colors.blue,
                                   fontSize: 30,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -193,48 +193,38 @@ class _RatingState extends State<Rating> {
                             return IconButton(
                               iconSize: 300,
                               onPressed: () {
-                                showDialog(
-                                  barrierColor: Colors.white.withOpacity(.6),
-                                  context: context,
-                                  builder: (_) {
-                                    Timer(Duration(seconds: 1), () {
-                                      Navigator.of(context)
-                                          .pop(); // Close the dialog after 1 seconds
-                                      setState(() {
-                                        emojiRating = 1;
-                                      });
-                                      insertRating(emojiRating);
-                                    });
-                                    return Dialog(
-                                      elevation: 0,
-                                      backgroundColor: Colors.transparent,
-                                      child: Container(
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Text(
-                                              "ขอบคุณที่ใช้บริการ",
-                                              style: TextStyle(
-                                                fontSize: 50,
-                                                color: Colors.blue[900],
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                            Text(
-                                              "THANK YOU",
-                                              style: TextStyle(
-                                                fontSize: 50,
-                                                color: Colors.blue[900],
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                          ],
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    backgroundColor: Colors.white70,
+                                    duration: Duration(seconds: 1),
+                                    content: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          "ขอบคุณที่ใช้บริการ",
+                                          style: TextStyle(
+                                            fontSize: 50,
+                                            color: Colors.blue[900],
+                                            fontWeight: FontWeight.bold,
+                                          ),
                                         ),
-                                      ),
-                                    );
-                                  },
+                                        Text(
+                                          "THANK YOU",
+                                          style: TextStyle(
+                                            fontSize: 50,
+                                            color: Colors.blue[900],
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
                                 );
+                                setState(() {
+                                  emojiRating = 1;
+                                });
+                                insertRating(emojiRating);
                               },
                               icon: Ink.image(
                                 image: AssetImage('image/1.png'),
@@ -245,47 +235,38 @@ class _RatingState extends State<Rating> {
                             return IconButton(
                               iconSize: 300,
                               onPressed: () {
-                                showDialog(
-                                  barrierColor: Colors.white.withOpacity(.6),
-                                  context: context,
-                                  builder: (_) {
-                                    Timer(Duration(seconds: 1), () {
-                                      Navigator.of(context).pop();
-                                      setState(() {
-                                        emojiRating = 2;
-                                      });
-                                      insertRating(emojiRating);
-                                    });
-                                    return Dialog(
-                                      elevation: 0,
-                                      backgroundColor: Colors.transparent,
-                                      child: Container(
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Text(
-                                              "ขอบคุณที่ใช้บริการ",
-                                              style: TextStyle(
-                                                fontSize: 50,
-                                                color: Colors.blue[900],
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                            Text(
-                                              "THANK YOU",
-                                              style: TextStyle(
-                                                fontSize: 50,
-                                                color: Colors.blue[900],
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                          ],
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    backgroundColor: Colors.white70,
+                                    duration: Duration(seconds: 1),
+                                    content: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          "ขอบคุณที่ใช้บริการ",
+                                          style: TextStyle(
+                                            fontSize: 50,
+                                            color: Colors.blue[900],
+                                            fontWeight: FontWeight.bold,
+                                          ),
                                         ),
-                                      ),
-                                    );
-                                  },
+                                        Text(
+                                          "THANK YOU",
+                                          style: TextStyle(
+                                            fontSize: 50,
+                                            color: Colors.blue[900],
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
                                 );
+                                setState(() {
+                                  emojiRating = 2;
+                                });
+                                insertRating(emojiRating);
                               },
                               icon: Ink.image(
                                 image: AssetImage('image/2.png'),
@@ -296,144 +277,122 @@ class _RatingState extends State<Rating> {
                             return IconButton(
                               iconSize: 300,
                               onPressed: () {
-                                showDialog(
-                                    barrierColor: Colors.white.withOpacity(.6),
-                                    context: context,
-                                    builder: (_) {
-                                      Timer(Duration(seconds: 1), () {
-                                        Navigator.of(context).pop();
-                                        setState(() {
-                                          emojiRating = 3;
-                                        });
-                                        insertRating(emojiRating);
-                                      });
-                                      return Dialog(
-                                        elevation: 0,
-                                        backgroundColor: Colors.transparent,
-                                        child: Container(
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                "ขอบคุณที่ใช้บริการ",
-                                                style: TextStyle(
-                                                  fontSize: 50,
-                                                  color: Colors.blue[900],
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                              Text(
-                                                "THANK YOU",
-                                                style: TextStyle(
-                                                  fontSize: 50,
-                                                  color: Colors.blue[900],
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                            ],
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    backgroundColor: Colors.white70,
+                                    duration: Duration(seconds: 1),
+                                    content: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          "ขอบคุณที่ใช้บริการ",
+                                          style: TextStyle(
+                                            fontSize: 50,
+                                            color: Colors.blue[900],
+                                            fontWeight: FontWeight.bold,
                                           ),
                                         ),
-                                      );
-                                    });
+                                        Text(
+                                          "THANK YOU",
+                                          style: TextStyle(
+                                            fontSize: 50,
+                                            color: Colors.blue[900],
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                                setState(() {
+                                  emojiRating = 3;
+                                });
+                                insertRating(emojiRating);
                               },
                               icon: Ink.image(
                                 image: AssetImage('image/3.png'),
                               ),
                             );
+
                           case 3:
                             return IconButton(
                               iconSize: 300,
                               onPressed: () {
-                                showDialog(
-                                    barrierColor: Colors.white.withOpacity(.6),
-                                    context: context,
-                                    builder: (_) {
-                                      Timer(Duration(seconds: 1), () {
-                                        Navigator.of(context).pop();
-                                        setState(() {
-                                          emojiRating = 4;
-                                        });
-                                        insertRating(emojiRating);
-                                      });
-                                      return Dialog(
-                                        elevation: 0,
-                                        backgroundColor: Colors.transparent,
-                                        child: Container(
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                "ขอบคุณที่ใช้บริการ",
-                                                style: TextStyle(
-                                                  fontSize: 50,
-                                                  color: Colors.blue[900],
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                              Text(
-                                                "THANK YOU",
-                                                style: TextStyle(
-                                                  fontSize: 50,
-                                                  color: Colors.blue[900],
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                            ],
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    backgroundColor: Colors.white70,
+                                    duration: Duration(seconds: 1),
+                                    content: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          "ขอบคุณที่ใช้บริการ",
+                                          style: TextStyle(
+                                            fontSize: 50,
+                                            color: Colors.blue[900],
+                                            fontWeight: FontWeight.bold,
                                           ),
                                         ),
-                                      );
-                                    });
+                                        Text(
+                                          "THANK YOU",
+                                          style: TextStyle(
+                                            fontSize: 50,
+                                            color: Colors.blue[900],
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                                setState(() {
+                                  emojiRating = 4;
+                                });
+                                insertRating(emojiRating);
                               },
                               icon: Ink.image(
                                 image: AssetImage('image/4.png'),
                               ),
                             );
+
                           case 4:
                             return IconButton(
                               iconSize: 300,
                               onPressed: () {
-                                showDialog(
-                                    barrierColor: Colors.white.withOpacity(.6),
-                                    context: context,
-                                    builder: (_) {
-                                      Timer(Duration(seconds: 1), () {
-                                        Navigator.of(context).pop();
-                                        setState(() {
-                                          emojiRating = 5;
-                                        });
-                                        insertRating(emojiRating);
-                                      });
-                                      return Dialog(
-                                        elevation: 0,
-                                        backgroundColor: Colors.transparent,
-                                        child: Container(
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                "ขอบคุณที่ใช้บริการ",
-                                                style: TextStyle(
-                                                  fontSize: 50,
-                                                  color: Colors.blue[900],
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                              Text(
-                                                "THANK YOU",
-                                                style: TextStyle(
-                                                  fontSize: 50,
-                                                  color: Colors.blue[900],
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                            ],
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    backgroundColor: Colors.white70,
+                                    duration: Duration(seconds: 1),
+                                    content: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          "ขอบคุณที่ใช้บริการ",
+                                          style: TextStyle(
+                                            fontSize: 50,
+                                            color: Colors.blue[900],
+                                            fontWeight: FontWeight.bold,
                                           ),
                                         ),
-                                      );
-                                    });
+                                        Text(
+                                          "THANK YOU",
+                                          style: TextStyle(
+                                            fontSize: 50,
+                                            color: Colors.blue[900],
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                                setState(() {
+                                  emojiRating = 5;
+                                });
+                                insertRating(emojiRating);
                               },
                               icon: Ink.image(
                                 image: AssetImage('image/5.png'),

@@ -108,6 +108,7 @@ class _WelcomeState extends State<Welcome> {
                           height: 30,
                         ),
                         DropdownButton<String>(
+                          itemHeight: 60,
                           value: selectedName.isNotEmpty ? selectedName : null,
                           icon: const Icon(
                             Icons.arrow_drop_down,
@@ -117,7 +118,7 @@ class _WelcomeState extends State<Welcome> {
                           elevation: 24,
                           style: const TextStyle(
                             color: Colors.black,
-                            fontSize: 40,
+                            fontSize: 30,
                           ),
                           hint: Text("เลือกแผนก"),
                           items: data.map<DropdownMenuItem<String>>(
