@@ -1,3 +1,4 @@
+import 'package:app/detail/detail.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'dart:async';
@@ -18,6 +19,48 @@ class Rating extends StatefulWidget {
 class _RatingState extends State<Rating> {
   double emojiRating = 0;
   List data = [];
+  late Timer _timer;
+  bool _isButtonDisabled = false;
+  int _countdown = 30;
+
+  // Method to start the timer
+  void startTimer() {
+    const oneSec = const Duration(seconds: 1);
+    _timer = Timer.periodic(oneSec, (Timer timer) {
+      if (_countdown == 0) {
+        setState(() {
+          _isButtonDisabled = false;
+        });
+        timer.cancel();
+      }
+      if (this.mounted) {
+        setState(() {
+          // Perform state update here
+          _countdown--;
+        });
+      }
+    });
+  }
+
+  // Method to handle button click
+  void handleButtonClick(double rating) {
+    setState(() {
+      _isButtonDisabled = true;
+      _countdown = 30; // Reset the countdown
+    });
+
+    // Start the timer
+    startTimer();
+
+    // Perform your rating logic here
+    insertRating(rating);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    startTimer(); // Start the timer when the widget is initialized
+  }
 
   Future<void> insertRating(double rating) async {
     String apiUrl = 'http://61.19.80.98/satisfy/postdata.php';
@@ -56,40 +99,6 @@ class _RatingState extends State<Rating> {
     }
   }
 
-  Future<String> getAllName() async {
-    String apiUrl = 'http://61.19.80.98/satisfy/getdata.php';
-    String token =
-        'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluc2F0aXNmeSJ9.tFEPJ4vS29s6P-5YO_VGz9CoGMwQdbj38Gg4JHrdeZE';
-
-    try {
-      final response = await http.get(
-        Uri.parse(apiUrl),
-        headers: {
-          'Accept': 'application/json',
-          'Authorization': token,
-        },
-      );
-
-      if (response.statusCode == 200) {
-        var jsonData = json.decode(response.body);
-        setState(() {
-          data = jsonData;
-          //deptName = getDeptNameById(widget.deptId);
-        });
-        print(jsonData);
-        return "success";
-      } else {
-        // Failed to fetch data
-        print('Failed to fetch data. Error: ${response.reasonPhrase}');
-        return "error";
-      }
-    } catch (e) {
-      // Exception occurred
-      print('Exception occurred while fetching data: $e');
-      return "error";
-    }
-  }
-
   String getDeptNameById(String deptId) {
     for (var item in data) {
       if (item['deptid'].toString() == deptId) {
@@ -97,12 +106,6 @@ class _RatingState extends State<Rating> {
       }
     }
     return '';
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    getAllName();
   }
 
   @override
@@ -123,8 +126,28 @@ class _RatingState extends State<Rating> {
               ),
               child: Column(
                 children: [
-                  SizedBox(
-                    height: 10,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      GestureDetector(
+                        onLongPress: () {
+                          // Handle double-tap to exit the app
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => Detail(
+                                deptId: widget.deptId,
+                              ),
+                            ),
+                          );
+                        },
+                        child: Container(
+                          child: Image(
+                            image: AssetImage('image/setting.png'),
+                            width: 40,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                   GestureDetector(
                     onDoubleTap: () {
@@ -190,212 +213,377 @@ class _RatingState extends State<Rating> {
                       itemBuilder: (context, index) {
                         switch (index) {
                           case 0:
-                            return IconButton(
-                              iconSize: 300,
-                              onPressed: () {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    backgroundColor: Colors.white70,
-                                    duration: Duration(seconds: 1),
-                                    content: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          "ขอบคุณที่ใช้บริการ",
-                                          style: TextStyle(
-                                            fontSize: 50,
-                                            color: Colors.blue[900],
-                                            fontWeight: FontWeight.bold,
+                            return IgnorePointer(
+                              ignoring: _isButtonDisabled,
+                              child: Stack(
+                                alignment: Alignment.center,
+                                children: [
+                                  IconButton(
+                                    iconSize: 300,
+                                    onPressed: () {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          backgroundColor: Colors.white70,
+                                          duration: Duration(seconds: 1),
+                                          content: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                "ขอบคุณที่ใช้บริการ",
+                                                style: TextStyle(
+                                                  fontSize: 50,
+                                                  color: Colors.blue[900],
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                              Text(
+                                                "THANK YOU",
+                                                style: TextStyle(
+                                                  fontSize: 50,
+                                                  color: Colors.blue[900],
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ),
-                                        Text(
-                                          "THANK YOU",
-                                          style: TextStyle(
-                                            fontSize: 50,
-                                            color: Colors.blue[900],
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ],
+                                      );
+                                      setState(() {
+                                        if (mounted) {
+                                          // Perform state update here
+                                          emojiRating = 1;
+                                        }
+                                      });
+
+                                      handleButtonClick(emojiRating);
+                                    },
+                                    icon: Ink.image(
+                                      image: AssetImage('image/1.png'),
                                     ),
                                   ),
-                                );
-                                setState(() {
-                                  emojiRating = 1;
-                                });
-                                insertRating(emojiRating);
-                              },
-                              icon: Ink.image(
-                                image: AssetImage('image/1.png'),
+                                  /*_isButtonDisabled
+                                      ? Positioned.fill(
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              color: Colors.white70,
+                                              shape: BoxShape.circle,
+                                            ),
+                                            child: Center(
+                                              child: Text(
+                                                '$_countdown',
+                                                style: TextStyle(
+                                                  fontSize: 100,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        )
+                                      : Container(),*/
+                                ],
                               ),
                             );
 
                           case 1:
-                            return IconButton(
-                              iconSize: 300,
-                              onPressed: () {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    backgroundColor: Colors.white70,
-                                    duration: Duration(seconds: 1),
-                                    content: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          "ขอบคุณที่ใช้บริการ",
-                                          style: TextStyle(
-                                            fontSize: 50,
-                                            color: Colors.blue[900],
-                                            fontWeight: FontWeight.bold,
+                            return IgnorePointer(
+                              ignoring: _isButtonDisabled,
+                              child: Stack(
+                                alignment: Alignment.center,
+                                children: [
+                                  IconButton(
+                                    iconSize: 300,
+                                    onPressed: () {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          backgroundColor: Colors.white70,
+                                          duration: Duration(seconds: 1),
+                                          content: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                "ขอบคุณที่ใช้บริการ",
+                                                style: TextStyle(
+                                                  fontSize: 50,
+                                                  color: Colors.blue[900],
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                              Text(
+                                                "THANK YOU",
+                                                style: TextStyle(
+                                                  fontSize: 50,
+                                                  color: Colors.blue[900],
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ),
-                                        Text(
-                                          "THANK YOU",
-                                          style: TextStyle(
-                                            fontSize: 50,
-                                            color: Colors.blue[900],
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ],
+                                      );
+                                      setState(() {
+                                        if (mounted) {
+                                          // Perform state update here
+                                          emojiRating = 2;
+                                        }
+                                      });
+
+                                      handleButtonClick(emojiRating);
+                                    },
+                                    icon: Ink.image(
+                                      image: AssetImage('image/2.png'),
                                     ),
                                   ),
-                                );
-                                setState(() {
-                                  emojiRating = 2;
-                                });
-                                insertRating(emojiRating);
-                              },
-                              icon: Ink.image(
-                                image: AssetImage('image/2.png'),
+                                  /* _isButtonDisabled
+                                      ? Positioned.fill(
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              color: Colors.white70,
+                                              shape: BoxShape.circle,
+                                            ),
+                                            child: Center(
+                                              child: Text(
+                                                '$_countdown',
+                                                style: TextStyle(
+                                                  fontSize: 100,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        )
+                                      : Container(),*/
+                                ],
                               ),
                             );
 
                           case 2:
-                            return IconButton(
-                              iconSize: 300,
-                              onPressed: () {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    backgroundColor: Colors.white70,
-                                    duration: Duration(seconds: 1),
-                                    content: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          "ขอบคุณที่ใช้บริการ",
-                                          style: TextStyle(
-                                            fontSize: 50,
-                                            color: Colors.blue[900],
-                                            fontWeight: FontWeight.bold,
+                            return IgnorePointer(
+                              ignoring: _isButtonDisabled,
+                              child: Stack(
+                                alignment: Alignment.center,
+                                children: [
+                                  IconButton(
+                                    iconSize: 300,
+                                    onPressed: () {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          backgroundColor: Colors.white70,
+                                          duration: Duration(seconds: 1),
+                                          content: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                "ขอบคุณที่ใช้บริการ",
+                                                style: TextStyle(
+                                                  fontSize: 50,
+                                                  color: Colors.blue[900],
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                              Text(
+                                                "THANK YOU",
+                                                style: TextStyle(
+                                                  fontSize: 50,
+                                                  color: Colors.blue[900],
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ),
-                                        Text(
-                                          "THANK YOU",
-                                          style: TextStyle(
-                                            fontSize: 50,
-                                            color: Colors.blue[900],
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ],
+                                      );
+                                      setState(() {
+                                        if (mounted) {
+                                          // Perform state update here
+                                          emojiRating = 3;
+                                        }
+                                      });
+
+                                      handleButtonClick(emojiRating);
+                                    },
+                                    icon: Ink.image(
+                                      image: AssetImage('image/3.png'),
                                     ),
                                   ),
-                                );
-                                setState(() {
-                                  emojiRating = 3;
-                                });
-                                insertRating(emojiRating);
-                              },
-                              icon: Ink.image(
-                                image: AssetImage('image/3.png'),
+                                  /* _isButtonDisabled
+                                      ? Positioned.fill(
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              color: Colors.white70,
+                                              shape: BoxShape.circle,
+                                            ),
+                                            child: Center(
+                                              child: Text(
+                                                '$_countdown',
+                                                style: TextStyle(
+                                                  fontSize: 100,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        )
+                                      : Container(),*/
+                                ],
                               ),
                             );
 
                           case 3:
-                            return IconButton(
-                              iconSize: 300,
-                              onPressed: () {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    backgroundColor: Colors.white70,
-                                    duration: Duration(seconds: 1),
-                                    content: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          "ขอบคุณที่ใช้บริการ",
-                                          style: TextStyle(
-                                            fontSize: 50,
-                                            color: Colors.blue[900],
-                                            fontWeight: FontWeight.bold,
+                            return IgnorePointer(
+                              ignoring: _isButtonDisabled,
+                              child: Stack(
+                                alignment: Alignment.center,
+                                children: [
+                                  IconButton(
+                                    iconSize: 300,
+                                    onPressed: () {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          backgroundColor: Colors.white70,
+                                          duration: Duration(seconds: 1),
+                                          content: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                "ขอบคุณที่ใช้บริการ",
+                                                style: TextStyle(
+                                                  fontSize: 50,
+                                                  color: Colors.blue[900],
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                              Text(
+                                                "THANK YOU",
+                                                style: TextStyle(
+                                                  fontSize: 50,
+                                                  color: Colors.blue[900],
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ),
-                                        Text(
-                                          "THANK YOU",
-                                          style: TextStyle(
-                                            fontSize: 50,
-                                            color: Colors.blue[900],
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ],
+                                      );
+                                      setState(() {
+                                        if (mounted) {
+                                          // Perform state update here
+                                          emojiRating = 4;
+                                        }
+                                      });
+
+                                      handleButtonClick(emojiRating);
+                                    },
+                                    icon: Ink.image(
+                                      image: AssetImage('image/4.png'),
                                     ),
                                   ),
-                                );
-                                setState(() {
-                                  emojiRating = 4;
-                                });
-                                insertRating(emojiRating);
-                              },
-                              icon: Ink.image(
-                                image: AssetImage('image/4.png'),
+                                  /* _isButtonDisabled
+                                      ? Positioned.fill(
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              color: Colors.white70,
+                                              shape: BoxShape.circle,
+                                            ),
+                                            child: Center(
+                                              child: Text(
+                                                '$_countdown',
+                                                style: TextStyle(
+                                                  fontSize: 100,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        )
+                                      : Container(),*/
+                                ],
                               ),
                             );
 
                           case 4:
-                            return IconButton(
-                              iconSize: 300,
-                              onPressed: () {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    backgroundColor: Colors.white70,
-                                    duration: Duration(seconds: 1),
-                                    content: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          "ขอบคุณที่ใช้บริการ",
-                                          style: TextStyle(
-                                            fontSize: 50,
-                                            color: Colors.blue[900],
-                                            fontWeight: FontWeight.bold,
+                            return IgnorePointer(
+                              ignoring: _isButtonDisabled,
+                              child: Stack(
+                                alignment: Alignment.center,
+                                children: [
+                                  IconButton(
+                                    iconSize: 300,
+                                    onPressed: () {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          backgroundColor: Colors.white70,
+                                          duration: Duration(seconds: 1),
+                                          content: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                "ขอบคุณที่ใช้บริการ",
+                                                style: TextStyle(
+                                                  fontSize: 50,
+                                                  color: Colors.blue[900],
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                              Text(
+                                                "THANK YOU",
+                                                style: TextStyle(
+                                                  fontSize: 50,
+                                                  color: Colors.blue[900],
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ),
-                                        Text(
-                                          "THANK YOU",
-                                          style: TextStyle(
-                                            fontSize: 50,
-                                            color: Colors.blue[900],
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ],
+                                      );
+                                      setState(() {
+                                        if (mounted) {
+                                          // Perform state update here
+                                          emojiRating = 5;
+                                        }
+                                      });
+
+                                      handleButtonClick(emojiRating);
+                                    },
+                                    icon: Ink.image(
+                                      image: AssetImage('image/5.png'),
                                     ),
                                   ),
-                                );
-                                setState(() {
-                                  emojiRating = 5;
-                                });
-                                insertRating(emojiRating);
-                              },
-                              icon: Ink.image(
-                                image: AssetImage('image/5.png'),
+                                  /* _isButtonDisabled
+                                      ? Positioned.fill(
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              color: Colors.white70,
+                                              shape: BoxShape.circle,
+                                            ),
+                                            child: Center(
+                                              child: Text(
+                                                '$_countdown',
+                                                style: TextStyle(
+                                                  fontSize: 100,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        )
+                                      : Container(),*/
+                                ],
                               ),
                             );
                           default:
