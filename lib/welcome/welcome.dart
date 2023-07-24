@@ -20,7 +20,7 @@ class _WelcomeState extends State<Welcome> {
 
   Future<void> getAllName() async {
     final response = await http.get(
-      Uri.parse("http://61.19.80.98/satisfy/getdata.php"),
+      Uri.parse("http://10.0.2.2/satisfy/getdata.php"),
       headers: {
         "Accept": "application/json",
         "Authorization":
@@ -42,6 +42,7 @@ class _WelcomeState extends State<Welcome> {
 
   @override
   void initState() {
+    //มันจะทำงานก่อนที่ built จะทำงาน
     super.initState();
     getAllName();
   }

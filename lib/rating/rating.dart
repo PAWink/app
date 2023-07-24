@@ -63,15 +63,9 @@ class _RatingState extends State<Rating> {
   }
 
   Future<void> insertRating(double rating) async {
-    String apiUrl = 'http://61.19.80.98/satisfy/postdata.php';
+    String apiUrl = 'http://10.0.2.2/satisfy/postdata.php';
     String token =
         'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluc2F0aXNmeSJ9.tFEPJ4vS29s6P-5YO_VGz9CoGMwQdbj38Gg4JHrdeZE';
-
-    /*Map<String, dynamic> requestData = {
-      'depid': '1',
-      'point': rating.toString()
-    };*/
-
     try {
       final response = await http.post(
         Uri.parse(apiUrl),
@@ -601,9 +595,10 @@ class _RatingState extends State<Rating> {
                     height: 10,
                   ),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        '         น้อยมาก   ',
+                        'น้อยมาก   ',
                         style: TextStyle(
                           fontSize: 45,
                           color: Colors.blue[900],

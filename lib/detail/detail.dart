@@ -61,7 +61,7 @@ class _DetailState extends State<Detail> {
     DateTime dateFirst,
     DateTime dateAfter,
   ) async {
-    String apiUrl = 'http://61.19.80.98/satisfy/report.php';
+    String apiUrl = 'http://10.0.2.2/satisfy/report.php';
     String token =
         'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluc2F0aXNmeSJ9.tFEPJ4vS29s6P-5YO_VGz9CoGMwQdbj38Gg4JHrdeZE';
     String dateFirst1 = DateFormat('yyyy-MM-dd').format(dateFirst);
